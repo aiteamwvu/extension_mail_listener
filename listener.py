@@ -12,6 +12,6 @@ def index():
     return store(url, category)
 
 def store(url, category):
-	return "OK"
+	return '{"status":"OK"}'
 
 app.run(host='0.0.0.0', port=6000, threaded=True)
