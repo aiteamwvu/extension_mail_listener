@@ -7,7 +7,6 @@ conn = pymongo.MongoClient()[config.mongo_db][config.mongo_col]
 
 @app.route("/")
 def index():
-	print("new")
 	url = request.args.get("url") if request.args.get("url") else ""
 	category = request.args.get("category") if request.args.get("category") else ""
 	return store(url, category)
