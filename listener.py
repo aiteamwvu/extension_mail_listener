@@ -94,7 +94,7 @@ def store(url, category):
 		return '{"success": true}'
 	else:
 		content, title, domain, image=get_info_url(url)				 	
-        	store_email_url(url,vars)
+        	store_email_url(url,content, title, domain, image)
 	return '{"success": false}'
 
 app.run(host='0.0.0.0', port=5001, threaded=True)
