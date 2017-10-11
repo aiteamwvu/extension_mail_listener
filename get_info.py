@@ -21,22 +21,30 @@ def find_domain(url):
     return domain
 
 def get_info_url(url):
-
+    allcontent = []
     try:
         source= urllib.request.urlopen(url)
         soup = bs.BeautifulSoup(source, "lxml")
-        print("domain ",find_domain(url))        #domain
-        title=soup.title.text          #title
-        print(title)
-
         for paragraph in soup.find_all('p'):
             content=paragraph.string   #content
-            print(content)
-        print(soup.findAll('img')[0].get("src")) #get the first image
+            strcontent =str(content)
+            #print("strcontent ", strcontent)
+
+            allcontent.append(strcontent)
+
+        for e in allcontent:
+            print("", e)
+        domain=find_domain(url)       #domain
+        title=soup.title.text          #title
+
+
+
+
+        image=soup.findAll('img')[0].get("src") #get the first image
+        return  allcontent, title, domain, image
     except Exception as e:
         print("Error: ", e)
 
-url="https://gizmodo.com/amazons-sick-high-end-kindle-got-a-serious-overhaul-1819330183"
 
 
-get_info_url(url)
+
