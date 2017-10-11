@@ -1,6 +1,7 @@
 import pymongo, config, feedparser
 from flask import Flask, request
 from flask_cors import CORS
+from get_info import *
 app = Flask(__name__)
 CORS(app)
 conn = pymongo.MongoClient()[config.mongo_db]
@@ -11,9 +12,9 @@ def index():
 	category = request.args.get("category") if request.args.get("category") else ""
 	return store(url, category)
 
-def store_email_url(url):
+def store_email_url(url,vars):
     conn[config.article].save({
-   "media content": [{"url": "URL_IMG"}],
+   "media content": [{"url": image}],
    "_id":url,
    "source_name":domain,
    "links":[
@@ -34,7 +35,7 @@ def store_email_url(url):
       {
          "base":"",
          "type":"text/html",
-         "value":"",
+         "value":content,
          "language":null
       }
    ],
@@ -72,10 +73,10 @@ def store_email_url(url):
       ""
    ],
    "source_content":"text",
-   "summary":summary,
+   "summary":content,
    "guidislink":false,
    "published":"",
-   "title":""
+   "title":title
 }
 )
 
@@ -91,6 +92,9 @@ def store(url, category):
 			"source_categories": category.split(",")
 		})
 		return '{"success": true}'
+	else:
+		content, title, domain, image=get_info_url(url)				 	
+        	store_email_url(url,vars)
 	return '{"success": false}'
 
 app.run(host='0.0.0.0', port=5001, threaded=True)
