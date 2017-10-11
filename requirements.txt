@@ -15,3 +15,5 @@ feedparser == 5.2.1
 
 # listener.py: 1
 pymongo == 3.4.0
+
+lxml

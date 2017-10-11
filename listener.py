@@ -2,6 +2,7 @@ import pymongo, config, feedparser, urllib, time
 import bs4 as bs
 from flask import Flask, request
 from flask_cors import CORS
+from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 conn = pymongo.MongoClient()[config.mongo_db]
@@ -69,7 +70,7 @@ def store_email_url(url, content, title, domain, image):
       "source_content": "text",
       "summary": content,
       "guidislink": False,
-      "published": "",
+      "published": str(datetime.now()),
       "title": title
    })
 
