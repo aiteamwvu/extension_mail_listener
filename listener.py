@@ -116,7 +116,7 @@ def get_info_url(url):
 def store(url, category):
    feed = feedparser.parse(url)
    if len(feed["entries"]) > 0:
-      connconn[config.mongo_col].save({
+      conn[config.mongo_col].save({
 			"_id": url,
 		    "source_table": "Article",
 			"source_name": feed["feed"]["title"],
