@@ -92,22 +92,52 @@ def find_domain(url):
     domain = url[start:end]
     return domain
 
+def find_valid_image(soup):
+    image=""
+    #Try to find image by img attribute
+    imagewithsize=soup.findAll(lambda tag: tag.name == "img" and tag.has_attr("height")
+                             and float(tag["height"]) >= 150.0)
+
+    if len(imagewithsize) > 0:
+        image=imagewithsize[0]
+
+    else:
+        imagewithsize = soup.findAll(lambda tag: tag.name == "img" and tag.has_attr("height"))
+
+        if imagewithsize==0:
+            print("no image")
+        else:
+            image=imagewithsize
+        try:
+            image=image['src']
+        except:
+            print(image)
+    return image
+
+
 def get_info_url(url):
-    allcontent = ""
-    print("Getting URL")
-    print(url)
+    allcontent = []
+    title=""
+    image = ""
+    domain=""
     try:
-        source = urllib.request.urlopen(url)
+        source= urllib.request.urlopen(url)
         soup = bs.BeautifulSoup(source, "lxml")
+        print("soup: ", soup)
         for paragraph in soup.find_all('p'):
-            content = paragraph.string   #content
-            strcontent = str(content)
-            #print("strcontent ", strcontent)
+            content=paragraph.string   #content
+            strcontent =str(content)
             allcontent += " " + strcontent
-        domain = find_domain(url)       #domain
-        title = soup.title.text          #title
-        image = soup.findAll('img')[0].get("src") #get the first image
-        return  allcontent, title, domain, image
+        domain = find_domain(url)  # domain
+        try:
+            domain= find_domain(url)
+            title = soup.title.text
+            image=find_valid_image(soup)
+            image=image['src']
+        except:
+            pass
+
+        return  allcontent,  domain, title,image
     except Exception as e:
         print("Error: ", e)
         return None, None, None, None
