@@ -138,6 +138,7 @@ def get_info_url(url):
             pass
 	if len(title)==0:
 	    title=allcontent[0:50] #if there is no title grab first characters of text
+	    title = ''.join(title)
 
         return  allcontent,  domain, title,image
     except Exception as e:
