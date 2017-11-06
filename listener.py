@@ -163,7 +163,7 @@ def store(url, category):
          store_email_url(url, content, title, domain, image)
          return '{"success": true}'
    try:
-	url = 'https://aiwvu.ml:5005/?keywords=1,2,3&url=1'
+	url = 'https://aiwvu.ml:5005/'
 	r = requests.get(url)
    except:
 	pass
