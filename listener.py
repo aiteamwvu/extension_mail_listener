@@ -135,10 +135,9 @@ def get_info_url(url):
             image=image['src']
         except:
             pass
-	if len(title)==0:
-	    title=allcontent[0:50] #if there is no title grab first characters of text
-	    title = ''.join(title)
-
+        if len(title)==0:
+            title=allcontent[0:50] #if there is no title grab first characters of text
+            title = ''.join(title)
         return  allcontent,  domain, title,image
     except Exception as e:
         print("Error: ", e)
@@ -163,10 +162,10 @@ def store(url, category):
          store_email_url(url, content, title, domain, image)
          return '{"success": true}'
    try:
-	url = 'https://aiwvu.ml:5005/'
-	r = requests.get(url)
+        url = 'https://aiwvu.ml:5005/'
+        r = requests.get(url)
    except:
-	pass
+        pass
    return '{"success": false}'
 
 app.run(host='0.0.0.0', port=5001, threaded=True)
