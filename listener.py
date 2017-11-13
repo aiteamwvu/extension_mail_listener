@@ -1,4 +1,4 @@
-import pymongo, config, feedparser, urllib, time
+import pymongo, config, feedparser, urllib, time, requests
 import bs4 as bs
 from flask import Flask, request
 from flask_cors import CORS
