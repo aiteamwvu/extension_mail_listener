@@ -12,7 +12,7 @@ def index():
 	url = request.args.get("url") if request.args.get("url") else ""
 	category = request.args.get("category") if request.args.get("category") else ""
 	return store(url, category)
-
+#It stores an url that is readed from an email sent to inbox@aiwvu.ml
 def store_email_url(url, content, title, domain, image):
    conn[config.article].save({
       "media content": [{
@@ -80,7 +80,7 @@ def find_nth(string, find_string, n):
         start = string.find(find_string, start+len(find_string))
         n -= 1
     return start
-
+#it finds the domain of the url, it is after the http:// or https:// part of the URL
 def find_domain(url):
     start = url.find("http://")
     if start < 0:
@@ -91,7 +91,7 @@ def find_domain(url):
     end = find_nth(url, "/", 3)
     domain = url[start:end]
     return domain
-
+#from the information given by beautiful soup it finds an image that is larger than 150 pixels
 def find_valid_image(soup):
     image=""
     imagewithsize=soup.findAll(lambda tag: tag.name == "img" and tag.has_attr("height")
@@ -113,7 +113,7 @@ def find_valid_image(soup):
             print(image)
     return image
 
-
+#retrieves info from the URL such as domain, title, image, and content 
 def get_info_url(url):
     allcontent = []
     title=""
